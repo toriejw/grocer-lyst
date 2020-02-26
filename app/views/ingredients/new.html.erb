@@ -1,0 +1,6 @@
+Add an ingredient:
+<%= form_for :ingredient, url: ingredients_path do |form| %>
+  <%= form.text_field :name %>
+  </br>
+  <%= form.submit "Create" %>
+<% end %>
