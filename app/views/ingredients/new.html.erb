@@ -1,7 +1,7 @@
 <div id="ingredient-form">
   Add an ingredient:
   <%= form_for :ingredient, url: ingredients_path do |form| %>
-    <%= form.text_field :name, onkeyup: "updateIngredientSuggestion()" %>
+    <%= form.text_field :name, onkeyup: "updateIngredientSuggestion()", autocomplete: "off" %>
     </br>
     <%= form.submit "Create" %>
   <% end %>
