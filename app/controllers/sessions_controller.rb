@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorize!, only: [:new, :create]
+  skip_before_action :authorize!, only: [:new, :create, :destroy]
 
   def new
   end
@@ -13,5 +13,10 @@ class SessionsController < ApplicationController
        flash.alert = "Invalid login credentials"
        redirect_to login_path
     end
+  end
+
+  def destroy
+    reset_session
+    redirect_to root_path
   end
 end
