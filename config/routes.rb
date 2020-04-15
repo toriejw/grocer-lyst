@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   resources :users, only: [ :new, :create, :show ], param: :user_id
+  resources :users do
+    resources :recipes, only: [ :new, :create ]
+  end
 end

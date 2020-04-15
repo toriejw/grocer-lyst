@@ -9,4 +9,10 @@ module Helpers
       click_button "Log In"
     end
   end
+
+  module ControllerAuthentication
+    def sign_in(user)
+      session[:user_id] = user.id
+    end
+  end
 end
