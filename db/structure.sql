@@ -47,7 +47,8 @@ CREATE TABLE public.ingredients (
     id bigint NOT NULL,
     name text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    recipe_id bigint NOT NULL
 );
 
 
@@ -207,6 +208,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_ingredients_on_recipe_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ingredients_on_recipe_id ON public.ingredients USING btree (recipe_id);
+
+
+--
 -- Name: index_recipes_on_name_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -228,6 +236,14 @@ CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (usernam
 
 
 --
+-- Name: ingredients fk_rails_3ee351e1cd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT fk_rails_3ee351e1cd FOREIGN KEY (recipe_id) REFERENCES public.recipes(id);
+
+
+--
 -- Name: recipes fk_rails_9606fce865; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -244,6 +260,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20200226022602'),
 ('20200327154020'),
-('20200413155516');
+('20200413155516'),
+('20200413160753');
 
 
