@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "User profile" do
-  include Helpers::Authentication
+  include Helpers::FeatureAuthentication
 
   context "user is logged in" do
     let(:user) { User.create!(username: "user1234", password: "password") }

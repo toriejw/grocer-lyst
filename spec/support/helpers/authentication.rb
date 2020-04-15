@@ -1,5 +1,5 @@
 module Helpers
-  module Authentication
+  module FeatureAuthentication
     def sign_in(user)
       visit login_path
 
