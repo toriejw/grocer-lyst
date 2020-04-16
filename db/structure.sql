@@ -48,7 +48,9 @@ CREATE TABLE public.ingredients (
     name text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    recipe_id bigint NOT NULL
+    recipe_id bigint NOT NULL,
+    quantity text DEFAULT '1'::text NOT NULL,
+    measurement_unit_id bigint
 );
 
 
@@ -254,6 +256,13 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: index_ingredients_on_measurement_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ingredients_on_measurement_unit_id ON public.ingredients USING btree (measurement_unit_id);
+
+
+--
 -- Name: index_ingredients_on_recipe_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -297,6 +306,14 @@ ALTER TABLE ONLY public.ingredients
 
 
 --
+-- Name: ingredients fk_rails_726b988a0d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT fk_rails_726b988a0d FOREIGN KEY (measurement_unit_id) REFERENCES public.measurement_units(id);
+
+
+--
 -- Name: recipes fk_rails_9606fce865; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -315,6 +332,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200327154020'),
 ('20200413155516'),
 ('20200413160753'),
-('20200416010136');
+('20200416010136'),
+('20200416011441');
 
 
