@@ -72,6 +72,37 @@ ALTER SEQUENCE public.ingredients_id_seq OWNED BY public.ingredients.id;
 
 
 --
+-- Name: measurement_units; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.measurement_units (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: measurement_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.measurement_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: measurement_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.measurement_units_id_seq OWNED BY public.measurement_units.id;
+
+
+--
 -- Name: recipes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -154,6 +185,13 @@ ALTER TABLE ONLY public.ingredients ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: measurement_units id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.measurement_units ALTER COLUMN id SET DEFAULT nextval('public.measurement_units_id_seq'::regclass);
+
+
+--
 -- Name: recipes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -181,6 +219,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.ingredients
     ADD CONSTRAINT ingredients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: measurement_units measurement_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.measurement_units
+    ADD CONSTRAINT measurement_units_pkey PRIMARY KEY (id);
 
 
 --
@@ -212,6 +258,13 @@ ALTER TABLE ONLY public.users
 --
 
 CREATE INDEX index_ingredients_on_recipe_id ON public.ingredients USING btree (recipe_id);
+
+
+--
+-- Name: index_measurement_units_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_measurement_units_on_name ON public.measurement_units USING btree (name);
 
 
 --
@@ -261,6 +314,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200226022602'),
 ('20200327154020'),
 ('20200413155516'),
-('20200413160753');
+('20200413160753'),
+('20200416010136');
 
 
