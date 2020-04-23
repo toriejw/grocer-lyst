@@ -44,12 +44,18 @@ describe RecipesController do
             name: "Cookies",
             instructions: "Mix!\nBake!\nEnjoy!",
             ingredients_attributes: {
-              "0" => { name: "Chocolate chips", _destroy: false },
-              "123456" => { name: "Flour", _destroy: false, },
+              "0" => { name: "Chocolate chips", quantity: "1.5", _destroy: false },
+              "123456" => {
+                name: "Flour",
+                quantity: "2 1/2",
+                measurement_unit_id: measurement_unit.id,
+                _destroy: false,
+              },
               "1586832043118" => { name: "Eggs", _destroy: false }
             }
           }
         }
+        let(:measurement_unit) { create(:measurement_unit) }
 
         it "creates a recipe" do
           expect { subject }.to change { user.recipes.count }.by 1
@@ -59,6 +65,11 @@ describe RecipesController do
           expect(recipe.name).to eq "Cookies"
           expect(recipe.instructions).to eq "Mix!\nBake!\nEnjoy!"
           expect(recipe.ingredients.count).to eq 3
+
+          flour = recipe.ingredients.find_by_name("Flour")
+
+          expect(flour.quantity).to eq "2 1/2"
+          expect(flour.measurement_unit).to eq measurement_unit
         end
       end
 

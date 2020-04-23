@@ -1,7 +1,11 @@
 <div class="nested-fields">
   <div class="field">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name %> <br />
+    <%= f.label :quantity %>
+    <%= f.text_field :quantity %> <br />
+    <%= f.label :measurement_unit %>
+    <%= f.collection_select(:measurement_unit_id, MeasurementUnit.all, :id, :name) %>
   </div>
   <%= link_to_remove_association "Remove ingredient", f %>
 </div>

@@ -19,7 +19,13 @@ class RecipesController < ApplicationController
       :instructions,
       :name,
       :notes,
-      ingredients_attributes: [ :id, :name, :_destory ]
+      ingredients_attributes: [
+        :id,
+        :measurement_unit_id,
+        :name,
+        :quantity,
+        :_destory
+      ]
     )
   end
 end
