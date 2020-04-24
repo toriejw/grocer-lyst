@@ -10,9 +10,9 @@ describe IngredientSearch do
 
     context "valid query is provided" do
       before do
-        Ingredient.create!(name: "apple")
-        Ingredient.create!(name: "apricot")
-        Ingredient.create!(name: "chocolate")
+        create(:ingredient, name: "apple")
+        create(:ingredient, name: "apricot")
+        create(:ingredient, name: "chocolate")
       end
 
       context "query matches only first letter" do
@@ -86,12 +86,12 @@ describe IngredientSearch do
         let(:query) { "a" }
 
         before do
-          Ingredient.create!(name: "apple")
-          Ingredient.create!(name: "apricot")
-          Ingredient.create!(name: "almond")
-          Ingredient.create!(name: "arugula")
-          Ingredient.create!(name: "avacado")
-          Ingredient.create!(name: "allspice")
+          create(:ingredient, name: "apple")
+          create(:ingredient, name: "apricot")
+          create(:ingredient, name: "almond")
+          create(:ingredient, name: "arugula")
+          create(:ingredient, name: "avacado")
+          create(:ingredient, name: "allspice")
         end
 
         it "limits results returned to 5" do
@@ -105,7 +105,7 @@ describe IngredientSearch do
         let(:query) { "a*" }
 
         before do
-          Ingredient.create!(name: "apple")
+          create(:ingredient, name: "apple")
         end
 
         it "removes them from the query" do
@@ -120,7 +120,7 @@ describe IngredientSearch do
         let(:query) { "a' OR 1='1" }
 
         before do
-          Ingredient.create!(name: "orange")
+          create(:ingredient, name: "orange")
         end
 
         it "does not return the maliciously desired results" do
