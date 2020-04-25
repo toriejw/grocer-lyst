@@ -1,1 +1,6 @@
 <%= "Hi #{current_user.username}!" %>
+
+<h1>Recipes</h1>
+<% current_user.recipes.each do |recipe| %>
+  <%= link_to recipe.name, user_recipe_path(current_user, recipe) %>
+<% end %>
