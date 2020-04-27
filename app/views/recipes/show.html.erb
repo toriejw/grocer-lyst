@@ -8,3 +8,11 @@
     </li>
   <% end %>
 </ul>
+
+<h2>Instructions</h2>
+<%= @recipe.instructions %>
+
+<% if @recipe.notes.present? %>
+  <h2>Notes</h2>
+  <%= @recipe.notes %>
+<% end %>
