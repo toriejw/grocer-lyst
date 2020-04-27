@@ -101,4 +101,39 @@ describe Ingredient, type: :model do
       end
     end
   end
+
+  describe "#format_for_display" do
+    let(:subject)    { ingredient.format_for_display }
+    let(:ingredient) {
+      create(
+        :ingredient,
+        quantity: quantity,
+        measurement_unit: measurement_unit
+      )
+    }
+    let(:quantity)         { "1" }
+    let(:measurement_unit) { nil }
+
+    context "with measurement unit" do
+      let(:measurement_unit) { create(:measurement_unit) }
+
+      context "quantity is greater than 1" do
+        let(:quantity) { "1 1/2" }
+
+        it { is_expected.to eq "1 1/2 cups #{ingredient.name.downcase.singularize}" }
+      end
+
+      context "quantity is less than or equal to 1" do
+        let(:quantity) { "1/2" }
+
+        it { is_expected.to eq "1/2 cup #{ingredient.name.downcase.singularize}" }
+      end
+    end
+
+    context "without measurement unit" do
+      let(:quantity) { "3" }
+
+      it { is_expected.to eq "3 #{ingredient.name.downcase}" }
+    end
+  end
 end
