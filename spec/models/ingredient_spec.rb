@@ -120,13 +120,13 @@ describe Ingredient, type: :model do
       context "quantity is greater than 1" do
         let(:quantity) { "1 1/2" }
 
-        it { is_expected.to eq "1 1/2 cups #{ingredient.name.downcase.singularize}" }
+        it { is_expected.to eq "1 1/2 cups #{ingredient.name.downcase}" }
       end
 
       context "quantity is less than or equal to 1" do
         let(:quantity) { "1/2" }
 
-        it { is_expected.to eq "1/2 cup #{ingredient.name.downcase.singularize}" }
+        it { is_expected.to eq "1/2 cup #{ingredient.name.downcase}" }
       end
     end
 
