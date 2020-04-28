@@ -11,6 +11,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [ :new, :create, :show ], param: :user_id
   resources :users do
-    resources :recipes, only: [ :new, :create, :show ]
+    resources :recipes, except: [ :index ]
   end
 end

@@ -1,0 +1,14 @@
+<%= f.label :name %> <br/>
+<%= f.text_field :name %> <br/>
+<%= f.label :instructions %> <br/>
+<%= f.text_field :instructions %> <br/>
+<%= f.label :notes %> <br/>
+<%= f.text_field :notes %> <br/>
+
+Ingredients
+<%= f.fields_for :ingredients do |ingredient| %>
+  <%= render "ingredient_fields", f: ingredient %>
+<% end %>
+<div class="links">
+  <%= link_to_add_association "Add ingredient", f, :ingredients %>
+</div>
