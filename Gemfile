@@ -12,6 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 
 gem 'bcrypt'
+gem 'bulma-rails'
 gem 'cocoon'
 
 gem 'bootsnap', '>= 1.4.2', require: false
