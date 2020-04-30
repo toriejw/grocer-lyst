@@ -9,14 +9,9 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
-  <div class="nav-bar">
-    <% if current_user %>
-      <%= button_to "Log Out", logout_path, method: :delete, id: "log-out-btn" %>
-    <% end %>
-  </div>
-
   <body>
+    <%= render "shared/navbar" %>
+
     <% flash.each do |_, msg| %>
       <div class="flash-msg">
         <%= msg %>
