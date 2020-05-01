@@ -1,8 +1,43 @@
-<%= "Hi #{current_user.username}!" %>
+<div id="user-profile">
+  <h1 id="user-welcome">
+    <%= "Welcome, #{current_user.username}!" %>
+  </h1>
 
-<h1>Recipes</h1>
-<% current_user.recipes.each do |recipe| %>
-  <%= link_to recipe.name, user_recipe_path(current_user, recipe) %>
-<% end %>
+  <div class="columns">
+    <div class="column">
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-info">
+          <div class="content">
+            <p class="title">Recipes</p>
 
-<%= button_to "Add a recipe", new_user_recipe_path(current_user), method: :get %>
+            <div class="content">
+              <% current_user.recipes.each do |recipe| %>
+                <%= link_to recipe.name, user_recipe_path(current_user, recipe) %>
+                <br/>
+              <% end %>
+
+              <%= button_to "Add a recipe", new_user_recipe_path(current_user), method: :get, class: "button", id: "add-recipe-btn" %>
+            </div>
+
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-info">
+          <div class="content">
+            <p class="title">Grocery list</p>
+            <p class="subtitle">Generated November 12, 2019</p>
+
+            <div class="content">
+              <!-- Content -->
+            </div>
+
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
