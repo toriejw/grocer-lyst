@@ -11,7 +11,7 @@
             <p class="title">Recipes</p>
 
             <div class="content">
-              <% current_user.recipes.each do |recipe| %>
+              <% current_user.recipes.alphabetized.each do |recipe| %>
                 <%= link_to recipe.name, user_recipe_path(current_user, recipe) %>
                 <br/>
               <% end %>
