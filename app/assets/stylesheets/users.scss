@@ -2,25 +2,6 @@
   margin-top: 20px;
 }
 
-#registration-form {
-  padding-top: 5%;
-  text-align: center;
-  margin-left: 20%;
-  margin-right: 20%;
-}
-
-#registration-form .input {
-  width: 200px;
-}
-
-#registration-form h1 {
-  margin-bottom: 50px;
-}
-
-#registration-form form {
-  margin-bottom: 30px;
-}
-
 #user-profile {
   padding-left: 15%;
   padding-right: 15%;
@@ -29,4 +10,23 @@
 #user-welcome {
   padding-top: 4%;
   padding-bottom: 3%;
+}
+
+.user-form {
+  padding-top: 5%;
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.user-form .input {
+  width: 200px;
+}
+
+.user-form h1 {
+  margin-bottom: 50px;
+}
+
+.user-form form {
+  margin-bottom: 30px;
 }
