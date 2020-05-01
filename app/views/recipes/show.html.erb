@@ -1,20 +1,22 @@
-<h1><%= @recipe.name %></h1>
+<div class="box recipe">
+  <h1><%= @recipe.name %></h1>
 
-<%= button_to "Edit recipe", edit_user_recipe_path(current_user, @recipe), method: :get %>
-
-<h2>Ingredients</h2>
-<ul>
-  <% @recipe.ingredients.each do |ingredient| %>
+  <h2>Ingredients</h2>
+  <ul>
+    <% @recipe.ingredients.each do |ingredient| %>
     <li>
       <%= ingredient.format_for_display %>
     </li>
+    <% end %>
+  </ul>
+
+  <h2>Instructions</h2>
+  <%= @recipe.instructions %>
+
+  <% if @recipe.notes.present? %>
+    <h2>Notes</h2>
+    <%= @recipe.notes %>
   <% end %>
-</ul>
 
-<h2>Instructions</h2>
-<%= @recipe.instructions %>
-
-<% if @recipe.notes.present? %>
-  <h2>Notes</h2>
-  <%= @recipe.notes %>
-<% end %>
+  <%= button_to "Edit recipe", edit_user_recipe_path(current_user, @recipe), method: :get, class: "button", id: "edit-recipe-btn" %>
+</div>
