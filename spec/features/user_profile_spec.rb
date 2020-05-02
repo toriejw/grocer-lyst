@@ -18,7 +18,7 @@ feature "User profile" do
 
     it "shows the user's profile" do
       expect(current_path).to eq user_path(user)
-      expect(page).to have_text "Hi #{user.username}!"
+      expect(page).to have_text "Welcome, #{user.username}!"
 
       expect(page).to have_text "Recipes"
       expect(page).to have_link recipe1.name

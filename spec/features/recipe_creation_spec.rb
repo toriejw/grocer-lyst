@@ -21,7 +21,7 @@ feature "Create a new recipe", js: true do
     fill_in :recipe_instructions, with: "Blend all ingredients and bake for 15 minutes"
     fill_in :recipe_notes, with: "Grandma's favorite!"
 
-    within all(".field")[0] do
+    within all(".nested-fields")[0] do
       all("input")[0].set "Chocolate chips"
       all("input")[1].set "1/3"
       find(:select).find(:option, :cup).select_option
@@ -29,18 +29,15 @@ feature "Create a new recipe", js: true do
 
     click_on "Add ingredient"
 
-    within all(".field")[1] do
+    within all(".nested-fields")[1] do
       all("input")[0].set "Eggs"
       all("input")[1].set "2"
     end
 
     click_on "Add ingredient"
 
-    within all(".field")[2] do
-      all("input")[0].set "Milk"
-    end
-
     within all(".nested-fields")[2] do
+      all("input")[0].set "Milk"
       click_on "Remove ingredient"
     end
 

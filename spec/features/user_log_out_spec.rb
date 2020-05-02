@@ -15,7 +15,7 @@ feature "User log out" do
 
       expect(current_path).to eq user_path(user)
 
-      click_button("Log Out")
+      click_on "Log Out"
 
       expect(current_path).to eq root_path
 

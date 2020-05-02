@@ -27,7 +27,7 @@ feature "Editing a recipe", js: true do
     fill_in :recipe_instructions, with: "Bake and enjoy"
     fill_in :recipe_notes, with: "Sarah's favorites"
 
-    within all(".field")[0] do
+    within all(".nested-fields")[0] do
       all("input")[0].set "secret ingredient"
       all("input")[1].set "1/3"
       find(:select).find(:option, :cup).select_option
@@ -35,7 +35,7 @@ feature "Editing a recipe", js: true do
 
     click_link "Add ingredient"
 
-    within all(".field")[recipe.ingredients.count] do
+    within all(".nested-fields")[recipe.ingredients.count] do
       all("input")[0].set "additional secret ingredient"
       all("input")[1].set "2"
       find(:select).find(:option, :cup).select_option
