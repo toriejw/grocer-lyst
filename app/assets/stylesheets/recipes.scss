@@ -1,3 +1,7 @@
+#edit-recipe-btn {
+  margin-top: 20px;
+}
+
 .recipe {
   margin-left: 20%;
   margin-right: 20%;
@@ -8,6 +12,14 @@
   margin-top: 20px;
 }
 
-#edit-recipe-btn {
-  margin-top: 20px;
+.recipe-form {
+  text-align: center;
+}
+
+.recipe-form .input {
+  width: 400px;
+}
+
+.recipe-form textarea {
+  height: 75px;
 }

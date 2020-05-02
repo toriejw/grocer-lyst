@@ -1,6 +1,8 @@
-<h1>Edit recipe</h1>
+<div class="recipe-form">
+  <h1>Edit recipe</h1>
 
-<%= form_for @recipe, url: user_recipe_path(current_user, @recipe), method: :put do |f| %>
-  <%= render "recipe_fields", f: f %>
-  <%= f.submit "Save" %>
-<% end %>
+  <%= form_for @recipe, url: user_recipe_path(current_user, @recipe), method: :put do |f| %>
+    <%= render "recipe_fields", f: f %>
+    <%= f.submit "Save", class: "button" %>
+  <% end %>
+</div>

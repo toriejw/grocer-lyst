@@ -1,11 +1,17 @@
-<%= f.label :name %> <br/>
-<%= f.text_field :name %> <br/>
-<%= f.label :instructions %> <br/>
-<%= f.text_field :instructions %> <br/>
-<%= f.label :notes %> <br/>
-<%= f.text_field :notes %> <br/>
+<div class="field">
+  <%= f.label :name, class: "label" %>
+  <%= f.text_field :name, class: "input" %> <br/>
+</div>
+<div class="field">
+  <%= f.label :instructions, class: "label" %>
+  <%= f.text_area :instructions, class: "input" %> <br/>
+</div>
+<div class="field">
+  <%= f.label :notes, class: "label" %>
+  <%= f.text_area :notes, class: "input" %> <br/>
+</div>
 
-Ingredients
+<div class="label">Ingredients</div>
 <%= f.fields_for :ingredients do |ingredient| %>
   <%= render "ingredient_fields", f: ingredient %>
 <% end %>
