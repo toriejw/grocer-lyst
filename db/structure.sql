@@ -40,6 +40,72 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: grocery_list_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.grocery_list_items (
+    id bigint NOT NULL,
+    name text,
+    quantity numeric,
+    grocery_list_id bigint,
+    measurement_unit_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: grocery_list_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.grocery_list_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: grocery_list_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.grocery_list_items_id_seq OWNED BY public.grocery_list_items.id;
+
+
+--
+-- Name: grocery_lists; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.grocery_lists (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    recipe_ids text[],
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: grocery_lists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.grocery_lists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: grocery_lists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.grocery_lists_id_seq OWNED BY public.grocery_lists.id;
+
+
+--
 -- Name: ingredients; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -180,6 +246,20 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: grocery_list_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grocery_list_items ALTER COLUMN id SET DEFAULT nextval('public.grocery_list_items_id_seq'::regclass);
+
+
+--
+-- Name: grocery_lists id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grocery_lists ALTER COLUMN id SET DEFAULT nextval('public.grocery_lists_id_seq'::regclass);
+
+
+--
 -- Name: ingredients id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -213,6 +293,22 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: grocery_list_items grocery_list_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grocery_list_items
+    ADD CONSTRAINT grocery_list_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: grocery_lists grocery_lists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.grocery_lists
+    ADD CONSTRAINT grocery_lists_pkey PRIMARY KEY (id);
 
 
 --
@@ -253,6 +349,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_grocery_list_items_on_grocery_list_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grocery_list_items_on_grocery_list_id ON public.grocery_list_items USING btree (grocery_list_id);
+
+
+--
+-- Name: index_grocery_list_items_on_measurement_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grocery_list_items_on_measurement_unit_id ON public.grocery_list_items USING btree (measurement_unit_id);
+
+
+--
+-- Name: index_grocery_lists_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_grocery_lists_on_user_id ON public.grocery_lists USING btree (user_id);
 
 
 --
@@ -333,6 +450,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200413155516'),
 ('20200413160753'),
 ('20200416010136'),
-('20200416011441');
+('20200416011441'),
+('20200503004520'),
+('20200503005520');
 
 
