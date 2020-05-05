@@ -23,6 +23,7 @@ group :development, :test do
   gem 'faker'
   gem 'launchy'
   gem 'pry'
+  gem 'pry-nav'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.0.0'
   gem 'selenium-webdriver'

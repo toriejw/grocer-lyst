@@ -121,6 +121,8 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    pry-nav (0.3.0)
+      pry (>= 0.9.10, < 0.13.0)
     public_suffix (4.0.3)
     puma (4.3.1)
       nio4r (~> 2.0)
@@ -248,6 +250,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   pry
+  pry-nav
   puma (~> 4.1)
   rails (~> 6.0.2, >= 6.0.2.1)
   rails-controller-testing
