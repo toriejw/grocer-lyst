@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :ingredient do
     name   { Faker::Food.ingredient }
-    recipe { create(:recipe) }
+    recipe { Recipe.first || create(:recipe) }
   end
 end
