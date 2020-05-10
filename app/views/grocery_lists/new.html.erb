@@ -1,0 +1,14 @@
+<div id="grocery-list-form" class="tile is-parent">
+  <div class="tile is-child box">
+    <p class="title">Create a new grocery list</p>
+    <%= form_tag user_grocery_lists_path(current_user, @grocery_list) do %>
+      <% current_user.recipes.each do |recipe| %>
+        <%= check_box("grocery_list", "recipe_ids", { multiple: true }, recipe.id, nil) %>
+        <%= label_tag recipe.name %>
+        <br/>
+      <% end %>
+      <%= submit_tag "Generate grocery list", class: "button is-link" %>
+    <% end %>
+    <%= button_to "Cancel", user_path(current_user), method: :get, class: "button is-danger" %>
+  </div>
+</div>

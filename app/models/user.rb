@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :recipes
+  has_one :grocery_list
 
   validates :username,
     presence: true,

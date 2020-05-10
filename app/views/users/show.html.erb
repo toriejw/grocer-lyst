@@ -29,10 +29,21 @@
         <article class="tile is-child notification is-info">
           <div class="content">
             <p class="title">Grocery list</p>
-            <p class="subtitle">Generated November 12, 2019</p>
+            <p class="subtitle">
+              <%= "Generated #{current_user.grocery_list.created_at}" if current_user.grocery_list %>
+            </p>
 
             <div class="content">
-              <!-- Content -->
+              <% if current_user.grocery_list %>
+                <%= "Grocery list for recipes: #{current_user.grocery_list.recipes.map(&:name).join(", ")}" %>
+                <ul>
+                  <% current_user.grocery_list.grocery_list_items.each do |item| %>
+                    <li><%= "#{item.amount} #{item.name.downcase}" %></li>
+                  <% end %>
+                </ul>
+              <% end %>
+
+              <%= button_to "Create new grocery list", new_user_grocery_list_path(current_user), method: :get, class: "button" %>
             </div>
 
           </div>
