@@ -1,16 +1,16 @@
 require "rails_helper"
 
 feature "User login" do
-  let(:username) { "user1234" }
+  let(:email) { "email@example.com" }
   let(:password) { "password" }
 
   context "user provides valid login credentials" do
-    let!(:user) { User.create!(username: username, password: password) }
+    let!(:user) { create(:user, email: email, password: password) }
 
     it "redirects to the user's profile page" do
       visit login_path
 
-      fill_in :username, with: username
+      fill_in :email, with: email
       fill_in :password, with: password
 
       click_button "Log In"
@@ -23,7 +23,7 @@ feature "User login" do
     it "notifies the user" do
       visit login_path
 
-      fill_in :username, with: username
+      fill_in :email, with: email
       fill_in :password, with: password
 
       click_button "Log In"

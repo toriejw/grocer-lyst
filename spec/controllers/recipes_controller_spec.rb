@@ -3,7 +3,7 @@ require "rails_helper"
 describe RecipesController do
   include Helpers::ControllerAuthentication
 
-  let(:user) { User.create!(username: "user1234", password: "password") }
+  let(:user) { User.create!(name: "name", email: "email@example.com", password: "password") }
 
   describe "GET #new" do
     before do

@@ -13,7 +13,7 @@ RSpec.describe UsersController, type: :controller do
   describe "POST #create" do
     subject { post :create, params: { user: user_params } }
     let(:user_params) {
-      { username: "user1234", password: "password" }
+      { email: "email@example.com", name: "name", password: "password" }
     }
 
     it "redirects to the user path" do
@@ -24,21 +24,21 @@ RSpec.describe UsersController, type: :controller do
       expect { subject }.to change { User.count }.by 1
     end
 
-    context "no username is provided" do
+    context "no email is provided" do
       let(:user_params) {
-        { username: nil, password: "password" }
+        { email: nil, name: "name", password: "password" }
       }
 
       it "renders the sign up form with an error" do
         expect(subject).to render_template(:new)
 
-        expect(flash.alert).to eq "Username can't be blank"
+        expect(flash.alert).to eq "Email can't be blank, Email is invalid"
       end
     end
 
     context "no password is provided" do
       let(:user_params) {
-        { username: "user1234", password: nil }
+        { email: "email@example.com", name: "user1234", password: nil }
       }
 
       it "renders the sign up form with an error" do

@@ -4,7 +4,7 @@ feature "User profile" do
   include Helpers::FeatureAuthentication
 
   context "user is logged in" do
-    let(:user) { User.create!(username: "user1234", password: "password") }
+    let(:user) { create(:user) }
     let!(:recipe1) {
       create(:recipe, user: user, instructions: "Mix & bake :)", notes: "notes on this recipe")
     }
@@ -18,7 +18,7 @@ feature "User profile" do
 
     it "shows the user's profile" do
       expect(current_path).to eq user_path(user)
-      expect(page).to have_text "Welcome, #{user.username}!"
+      expect(page).to have_text "Welcome, #{user.name}!"
 
       expect(page).to have_text "Recipes"
       expect(page).to have_link recipe1.name

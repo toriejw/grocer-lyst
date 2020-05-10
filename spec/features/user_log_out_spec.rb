@@ -4,7 +4,7 @@ feature "User log out" do
   include Helpers::FeatureAuthentication
 
   context "user is logged in" do
-    let(:user) { User.create!(username: "user1234", password: "password") }
+    let(:user) { create(:user) }
 
     before do
       sign_in(user)

@@ -13,13 +13,13 @@ describe SessionsController, type: :controller do
   describe "POST #create" do
     subject { post :create, params: user_params }
     let(:user_params) {
-      { username: username, password: password }
+      { email: email, password: password }
     }
-    let(:username) { "user1234" }
+    let(:email) { "email@example.com" }
     let(:password) { "password" }
 
     context "user exists" do
-      let!(:user) { User.create!(username: username, password: password) }
+      let!(:user) { User.create!(name: "name", email: email, password: password) }
 
       context "user credentials are valid" do
         it "logs in the user" do
@@ -30,7 +30,7 @@ describe SessionsController, type: :controller do
 
       context "user credentials are invalid" do
         let(:user_params) {
-          { username: username, password: "badpassword" }
+          { email: email, password: "badpassword" }
         }
 
         it "does not log in the user" do

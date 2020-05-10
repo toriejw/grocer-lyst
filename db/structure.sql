@@ -219,7 +219,8 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    username character varying NOT NULL,
+    name character varying NOT NULL,
+    email character varying NOT NULL,
     password_digest character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -408,10 +409,10 @@ CREATE INDEX index_recipes_on_user_id ON public.recipes USING btree (user_id);
 
 
 --
--- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_username ON public.users USING btree (username);
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
