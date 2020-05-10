@@ -5,6 +5,34 @@ describe Amount, type: :model do
   let(:quantity)         { "1" }
   let(:measurement_unit) { nil }
 
+  describe ".can_convert_between?" do
+    let(:subject) { described_class.can_convert_between?(amount, amount2) }
+    let(:amount2) { Amount.new(quantity2, measurement_unit2) }
+    let(:quantity2) { "1" }
+    let(:measurement_unit2) { nil }
+
+    context "measurement units are the same" do
+      context "measurement units are nil" do
+        it { should be true }
+      end
+
+      context "measurement units are not nil" do
+        let(:measurement_unit)  { create(:measurement_unit) }
+        let(:measurement_unit2) { measurement_unit }
+
+        it { should be true }
+      end
+    end
+
+    context "measurement units are different" do
+      context "nil and anything" do
+        let(:measurement_unit2) { create(:measurement_unit) }
+
+        it { should be false }
+      end
+    end
+  end
+
   describe "#+" do
     let(:additional_amount) {
       Amount.new(additional_quantity, additional_measurement_unit)
