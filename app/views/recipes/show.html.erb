@@ -19,4 +19,5 @@
   <% end %>
 
   <%= button_to "Edit recipe", edit_user_recipe_path(current_user, @recipe), method: :get, class: "button", id: "edit-recipe-btn" %>
+  <%= button_to "Delete recipe", user_recipe_path(current_user, @recipe), method: :delete, class: "button", data: { confirm: "Are you sure you want to delete this recipe?"} %>
 </div>

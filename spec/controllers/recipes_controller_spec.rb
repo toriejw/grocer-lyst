@@ -133,4 +133,42 @@ describe RecipesController do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    let(:subject) { delete :destroy, params: { user_id: user.id, id: recipe.id } }
+    let!(:recipe) { create(:recipe, user: user) }
+    let!(:ingredient) { create(:ingredient, recipe: recipe) }
+
+    context "user is logged in" do
+      before do
+        sign_in(user)
+      end
+
+      it "deletes the recipe and ingredients" do
+        expect { subject }.to change { user.recipes.count }.by -1
+        expect { recipe.reload }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { ingredient.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it "redirects to the user's page on success" do
+        expect(subject).to redirect_to(user_path(user))
+      end
+
+      context "recipe ID is for a different user" do
+        let!(:recipe) { create(:recipe, user: create(:user)) }
+
+        it "raises an error" do
+          expect {
+            subject
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+
+    context "user is not logged in" do
+      it "does not delete the recipe" do
+        expect(subject).to redirect_to(login_path)
+      end
+    end
+  end
 end

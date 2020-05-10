@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :get_current_recipe, :only => [ :show, :edit, :update ]
+  before_action :get_current_recipe, :only => [ :show, :edit, :update, :destroy ]
 
   def new
     @recipe = Recipe.new
@@ -30,6 +30,11 @@ class RecipesController < ApplicationController
       flash.alert = @recipe.errors.full_messages.join(", ")
       render :edit
     end
+  end
+
+  def destroy
+    @recipe.destroy!
+    redirect_to user_path(current_user)
   end
 
   def recipe_params
