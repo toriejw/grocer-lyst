@@ -49,6 +49,7 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+    Faker::UniqueGenerator.clear
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests
