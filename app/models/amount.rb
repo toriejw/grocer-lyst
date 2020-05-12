@@ -13,7 +13,10 @@ class Amount
   end
 
   def can_convert_to?(measurement_unit)
-    @measurement_unit == measurement_unit
+    @measurement_unit == measurement_unit ||
+    MeasurementUnitConverter.can_convert_between?(
+      @measurement_unit&.name, measurement_unit&.name
+    )
   end
 
   def cannot_convert_to?(measurement_unit)
@@ -47,8 +50,9 @@ class Amount
     end
 
     if @measurement_unit == other.measurement_unit
-      combined_quantity = rationalized_quantity + other.rationalized_quantity
-      Amount.new(combined_quantity, @measurement_unit)
+      add_amount_with_same_unit(other)
+    else
+      add_amount_with_differing_unit(other)
     end
   end
 
@@ -58,6 +62,29 @@ class Amount
   end
 
   private
+
+    def add_amount_with_differing_unit(other)
+      larger_unit = MeasurementUnitConverter.largest_unit_between(@measurement_unit.name, other.measurement_unit.name)
+      if larger_unit == @measurement_unit.name
+        larger_unit_amount = self
+        smaller_unit_amount = other
+      else
+        larger_unit_amount = other
+        smaller_unit_amount = self
+      end
+      converted_quantity = MeasurementUnitConverter.convert(
+        from: smaller_unit_amount.measurement_unit.name,
+        to: larger_unit,
+        quantity: smaller_unit_amount.quantity
+      )
+      combined_quantity = converted_quantity.round(2) + larger_unit_amount.rationalized_quantity.round(2).to_f
+      Amount.new(combined_quantity, MeasurementUnit.find_by_name(larger_unit))
+    end
+
+    def add_amount_with_same_unit(other)
+      combined_quantity = rationalized_quantity + other.rationalized_quantity
+      Amount.new(combined_quantity, @measurement_unit)
+    end
 
     def pluralize_unit?
       rationalized_quantity > 1

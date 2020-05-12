@@ -33,14 +33,22 @@ describe GroceryListItem do
         let(:measurement_unit) { create(:measurement_unit, name: "tablespoon") }
         let(:ingredient_measurement_unit) { create(:measurement_unit, name: "teaspoon") }
 
-        it "combines the quantities and returns a single measurement_unit"
+        it "combines the quantities and returns a single measurement_unit" do
+          expect(grocery_list_item.amount.to_f).to eq 1.25
+          expect(grocery_list_item.amount.measurement_unit).to eq measurement_unit
+
+          subject
+
+          expect(grocery_list_item.amount.to_f).to eq 1.58
+          expect(grocery_list_item.amount.measurement_unit).to eq measurement_unit
+        end
       end
 
       context "measurement_units cannot be compared" do
         let(:measurement_unit) { create(:measurement_unit) }
-        let(:ingredient_measurement_unit) { create(:measurement_unit, name: "incomparable") }
+        let(:ingredient_measurement_unit) { create(:measurement_unit, name: "teaspoon") }
 
-        it "raises an error" do
+        xit "raises an error" do
           expect { subject }.to raise_error(/Cannot convert between/)
         end
       end

@@ -132,17 +132,36 @@ describe GroceryListGenerator do
       end
 
       context "and the ingredient measurement units are different" do
-        it "combines the ingredient quantities"
+        let(:teaspoon_measurement_unit) { create(:measurement_unit, name: "teaspoon") }
+        let(:tablespoon_measurement_unit) { create(:measurement_unit, name: "tablespoon") }
+
+        let(:ingredient1) {
+          create(:ingredient, name: "parsley", recipe: recipe1, measurement_unit: tablespoon_measurement_unit)
+        }
+        let(:ingredient2) { create(:ingredient, name: "banana", recipe: recipe1) }
+        let(:ingredient3) {
+          create(:ingredient, name: "parsley", recipe: recipe2, measurement_unit: teaspoon_measurement_unit)
+        }
+        let!(:ingredients) { [ ingredient1, ingredient2, ingredient3 ] }
+        let(:recipe_ids) { [ recipe1.id, recipe2.id ] }
+
+        context "measurement unit combination is possible" do
+          it "combines the ingredient quantities" do
+            subject.generate
+
+            grocery_list_items = user.grocery_list.grocery_list_items
+
+            expect(grocery_list_items.count).to eq 2
+
+            parsley_items = grocery_list_items.select { |item| item.name.singularize == "parsley" }
+
+            expect(parsley_items.count).to eq 1
+            expect(parsley_items.first.quantity.to_f).to eq 1.33
+          end
+        end
 
         context "measurement unit combination isn't possible" do
           let(:ingredient1) { create(:ingredient, name: "parsley", recipe: recipe1) }
-          let(:ingredient2) { create(:ingredient, name: "banana", recipe: recipe1) }
-          let(:ingredient3) {
-            create(:ingredient, name: "parsley", recipe: recipe2, measurement_unit: cup_measurement_unit)
-          }
-          let(:cup_measurement_unit) { create(:measurement_unit) }
-          let!(:ingredients) { [ ingredient1, ingredient2, ingredient3 ] }
-          let(:recipe_ids) { [ recipe1.id, recipe2.id ] }
 
           it "creates two different grocery list items for the conflicting units" do
             subject.generate

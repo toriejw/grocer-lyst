@@ -65,28 +65,73 @@ describe GroceryList do
             )
           }
 
-          it "combines the new ingredient with the existing grocery list item"
+          it "combines the new ingredient with the existing grocery list item" do
+            expect { subject }.to_not change { grocery_list.grocery_list_items.count }
+
+            item = grocery_list.grocery_list_items.find do |item|
+              item.name.singularize == ingredient2.name.singularize
+            end
+
+            expect(item.quantity.to_f).to eq 2.25
+          end
         end
 
         context "with differing measurement types" do
-          let(:duplicate_ingredient) {
-            create(:ingredient,
-              name: ingredient2.name,
-              quantity: "1 1/4",
-              measurement_unit: tablespoon_measurement_unit
-            )
-          }
-
           context "and measurement types can be combined" do
-            it "combines the new ingredient with the existing grocery list item"
+            let(:duplicate_ingredient) {
+              create(:ingredient,
+                name: ingredient2.name,
+                quantity: "8",
+                measurement_unit: tablespoon_measurement_unit
+              )
+            }
+
+            it "combines the new ingredient with the existing grocery list item" do
+              expect { subject }.to_not change { grocery_list.grocery_list_items.count }
+
+              item = grocery_list.grocery_list_items.find do |item|
+                item.name.singularize == ingredient2.name.singularize
+              end
+
+              expect(item.quantity.to_f).to eq 1.5
+            end
           end
 
           context "and measurement types cannot be combined" do
-            it "creates a new grocery_list_item"
+            let(:duplicate_ingredient) {
+              create(:ingredient, name: ingredient2.name, measurement_unit: nil)
+            }
+
+            it "creates a new grocery_list_item" do
+              expect { subject }.to change { grocery_list.grocery_list_items.count }.by 1
+            end
           end
 
           context "multiple items with differing measurement types exist" do
-            it "adds it to one of the items with a comparable measurement unit"
+            let(:additional_duplicate_ingredient) {
+              create(:ingredient, name: ingredient2.name, measurement_unit: nil)
+            }
+            let(:duplicate_ingredient) {
+              create(:ingredient, name: ingredient2.name, measurement_unit: nil)
+            }
+
+            before do
+              grocery_list.add_ingredients([additional_duplicate_ingredient])
+            end
+
+            it "adds it to one of the items with a comparable measurement unit" do
+              expect { subject }.to_not change { grocery_list.grocery_list_items.count }
+
+              items = grocery_list.grocery_list_items.find_all do |item|
+                item.name.singularize == ingredient2.name.singularize
+              end
+
+              expect(items.count).to eq 2
+
+              combined_item = items.find { |item| item.measurement_unit == nil }
+
+              expect(combined_item.quantity).to eq 2
+            end
           end
         end
 
