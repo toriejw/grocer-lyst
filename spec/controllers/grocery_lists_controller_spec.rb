@@ -75,13 +75,21 @@ describe GroceryListsController do
       end
 
       context "user has an existing grocery list" do
-        let(:recipe_ids) { [ recipe1.id, recipe2.id ] }
+        let!(:ingredient1) { create(:ingredient, recipe: recipe1) }
 
         before do
           create(:grocery_list, user: user)
         end
 
-        it "replaces the existing grocery list"
+        it "replaces the existing grocery list" do
+          expect(user.grocery_list.grocery_list_items.count).to eq 0
+
+          subject
+
+          grocery_list_items = user.reload.grocery_list.grocery_list_items
+
+          expect(grocery_list_items.count).to eq 1
+        end
       end
 
       context "no recipes are provided" do
