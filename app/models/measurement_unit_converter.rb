@@ -1,6 +1,7 @@
 class MeasurementUnitConverter
   CONVERSIONS = {
-    cup:        { tablespoon: [ "*", 16 ], teaspoon: [ "*", 48 ] },
+    cup:        { ounce: [ "*", 8 ], tablespoon: [ "*", 16 ], teaspoon: [ "*", 48 ] },
+    ounce:      { cup: [ "/", 8 ] },
     tablespoon: { cup: [ "/", 16 ], teaspoon: [ "*", 3 ] },
     teaspoon:   { cup: [ "/", 48 ], tablespoon: [ "/", 3 ] },
   }

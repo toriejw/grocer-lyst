@@ -18,5 +18,48 @@ describe MeasurementUnitConverter do
 
       it { should be true }
     end
+
+    context "ounce and cup" do
+      let(:measurement_type1) { :ounce }
+      let(:measurement_type2) { :cup }
+
+      it { should be true }
+    end
+
+    context "ounce and teaspoon" do
+      let(:measurement_type1) { :ounce }
+      let(:measurement_type2) { :teaspoon }
+
+      it { should be false }
+    end
+  end
+
+  describe ".convert" do
+    let(:subject) {
+      described_class.convert(from: measurement_type1, to: measurement_type2, quantity: quantity)
+    }
+    let(:measurement_type1) { nil }
+    let(:measurement_type2) { nil }
+    let(:quantity)          { nil }
+
+    context "ounces to cups" do
+      let(:measurement_type1) { :ounce }
+      let(:measurement_type2) { :cup }
+      let(:quantity)          { 8 }
+
+      it "converts correctly" do
+        expect(subject).to eq 1
+      end
+    end
+
+    context "cups to ounces" do
+      let(:measurement_type1) { :cup }
+      let(:measurement_type2) { :ounce }
+      let(:quantity)          { 5 }
+
+      it "converts correctly" do
+        expect(subject).to eq 40
+      end
+    end
   end
 end
