@@ -1,8 +1,8 @@
 class MeasurementUnitConverter
   CONVERSIONS = {
+    cup:        { tablespoon: [ "*", 16 ], teaspoon: [ "*", 48 ] },
     tablespoon: { cup: [ "/", 16 ], teaspoon: [ "*", 3 ] },
     teaspoon:   { cup: [ "/", 48 ], tablespoon: [ "/", 3 ] },
-    cup:        { tablespoon: [ "*", 16 ], teaspoon: [ "*", 48 ] }
   }
 
   def self.can_convert_between?(unit_type1, unit_type2)
